@@ -4,15 +4,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
 public class OpenToChrome {
 
-    public ArrayList<String> readToRealGame(String URL) throws InterruptedException, IOException {
+    public ArrayList<String> readToRealGame(String URL) throws InterruptedException, IOException, GeneralSecurityException {
 
         ReadToFile readToFile = new ReadToFile();
-        ArrayList<String> cod = readToFile.();
+        ReadToFile.readToFile("1vpgDfJi0mjvZ8amZ3P9MKjifnbN-11cnDmm6CtRluOE");
+
+        System.out.println (ReadToFile.readToFile("1vpgDfJi0mjvZ8amZ3P9MKjifnbN-11cnDmm6CtRluOE"));
+
         ArrayList<String> helpWithAllLang = new ArrayList();
+/*
         for (int i=0; i< 2; i++) //cod.size()
         {
             WebDriver chromeDriver = new ChromeDriver();
@@ -28,6 +33,8 @@ public class OpenToChrome {
             Thread.sleep(500);
             chromeDriver.quit();
         }
+
+ */
         return helpWithAllLang;
     }
 }

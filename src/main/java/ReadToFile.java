@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,10 +61,10 @@ public class ReadToFile {
      * Prints the names and majors of students in a sample spreadsheet:
      * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
      */
-    public static void readToFile (String... args) throws IOException, GeneralSecurityException {
+    public static ArrayList<String> readToFile (String spreadsheetId) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        final String spreadsheetId = "1vpgDfJi0mjvZ8amZ3P9MKjifnbN-11cnDmm6CtRluOE";
+        //final String spreadsheetId = "1vpgDfJi0mjvZ8amZ3P9MKjifnbN-11cnDmm6CtRluOE";
         final String range = "Help Desktop! + B2:B";
         Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
@@ -72,15 +73,18 @@ public class ReadToFile {
                 .get(spreadsheetId, range)
                 .execute();
         List<List<Object>> values = response.getValues();
+        ArrayList<String> list = new ArrayList<String>();
+        int colomn = 1;
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
         } else {
-            System.out.println("Name, Major");
             for (List row : values) {
                 for (Object currentRow:row) {
-                    System.out.printf("%s\n", currentRow);
+                    list.add(colomn, currentRow.toString());
+                    //System.out.printf("%s\n", currentRow);
                 }
             }
         }
+        return list;
     }
 }
