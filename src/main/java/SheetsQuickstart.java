@@ -59,8 +59,7 @@ public class SheetsQuickstart {
      * Prints the names and majors of students in a sample spreadsheet:
      * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
      */
-    public String text = "";
-    public String runRead(String spreadsheetId, String tabl, char column) throws IOException, GeneralSecurityException {
+    private static void runRead(String spreadsheetId, String tabl, char column, ArrayList<GoogleColumn> allColumn) throws IOException, GeneralSecurityException {
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         //final String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
@@ -74,41 +73,33 @@ public class SheetsQuickstart {
         List<List<Object>> values = response.getValues();
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
-        } else {
-            for (List row : values) {
-                for (Object currentRow : row){
-                    String t = currentRow.toString();
-                    text = text.concat(t + " ");
-                    //System.out.printf("%s\n", currentRow);
+        } else
+        {
+            GoogleColumn gColumn = new GoogleColumn();
+            for (List row : values)
+            {
+                for (Object currentRow : row)
+                {
+                    if (gColumn.code == null)
+                    {
+                        gColumn.code = (String) currentRow;
+                    }
+                    else
+                    {
+                        gColumn.googleText.add((String) currentRow);
+                    }
                 }
             }
+            allColumn.add(gColumn);
         }
-        String[] ddsds = text.split("[.!?%]\\n");
-        ddsds.toString();
-        String splittedText = (Arrays.toString(text.split("[.!?%]\\n")));
-        String[] cod = text.split(" ", 2);
-        textHelp(splittedText.substring(0));
-        text = "";
-        return splittedText;
     }
 
-    public void readAllDocument (String spreadsheetId, String tabl, char column) throws IOException, GeneralSecurityException {
+    public static  void readAllDocument (String spreadsheetId, String tabl, char column, ArrayList<GoogleColumn> allColumn) throws IOException, GeneralSecurityException {
         //column = 'B';
-        for (int i = 0; i<1; i++)
+        for (int i = 0; i<18; i++)
         {
-            runRead(spreadsheetId, tabl, column);
+            runRead(spreadsheetId, tabl, column, allColumn);
             column++;
         }
-    }
-
-    public Map textHelp (String splittedText)
-    {
-        String[] cod = splittedText.split(" ", 2);
-        String countryCod = cod [0];
-        Map<String, String> textHelp = new HashMap<String, String>();
-        textHelp.put(countryCod, splittedText);
-        System.out.println(splittedText);
-        return textHelp;
-
     }
 }
