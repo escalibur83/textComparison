@@ -17,7 +17,7 @@ public class OpenToChrome {
             String code = element.code;
             WebDriver chromeDriver = new ChromeDriver();
             chromeDriver.get(URL +"?lang=" + code);
-            Thread.sleep(20000);
+            Thread.sleep(30000);
             WebElement infoButton = chromeDriver.findElement(By.xpath(".//*[@ class = \'active-element footer-icon footer-help-icon menu-help menu-disabling-sensitive\']"));
             infoButton.click();
             Thread.sleep(1000);
@@ -30,6 +30,7 @@ public class OpenToChrome {
             String[] splittedText = textOfGames.split("\\n");
 
             int index = 0;
+            String fullText = "";
             for (;index<element.googleText.size(); index++)
             {
                 String textNew = element.googleText.get(index);
@@ -43,14 +44,27 @@ public class OpenToChrome {
 
                 diffMatchPatch obj = new diffMatchPatch();
                 LinkedList<diffMatchPatch.Diff> difference = obj.diff_main(textOld, textNew);
+
                 for (diffMatchPatch.Diff diffElement : difference)
                 {
+                    System.out.println(diffElement.text);
                     System.out.println(diffElement.toString());
+                    if (diffElement.operation == diffMatchPatch.Operation.EQUAL)
+                    {
+                        fullText = fullText.concat(diffElement.text);
+                    }
+                    if (diffElement.operation == diffMatchPatch.Operation.DELETE)
+                    {
+                        fullText = fullText.concat("<strike>" + diffElement.text + "</strike>");
+                    }
+                    if (diffElement.operation == diffMatchPatch.Operation.INSERT)
+                    {
+                        fullText = fullText.concat("<span class='colortextINS'>" + diffElement.text + "</span>");
+                    }
                 }
-
-                int t = 0;
+                fullText = fullText.concat("<p>");
             }
-
+            int t = 0;
         }
         return textOfGames;
     }
