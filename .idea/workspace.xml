@@ -53,7 +53,7 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="xxxGoogleApi" />
+      <module name="xxx" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -104,11 +104,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/Split.java</url>
           <line>6</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/OpenToChrome.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
